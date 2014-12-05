@@ -1,0 +1,35 @@
+﻿@using Microsoft.Azure.ActiveDirectory.GraphClient
+@model User
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>User</title>
+</head>
+<body>
+
+    @if (ViewBag.ErrorMessage == "AuthorizationRequired")
+    {
+        <p>The token for accessing the Graph API has expired. Click @Html.ActionLink("here", "RefreshSession", "UserProfile", new { reauth = true }, null) to sign-in and get a new access token.</p>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <tr>
+            <td>Display Name</td>
+            <td>@Model.DisplayName</td>
+        </tr>
+        <tr>
+            <td>First Name</td>
+            <td>@Model.GivenName</td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td>@Model.Surname</td>
+        </tr>
+    </table>
+}
+</body>
+</html>
