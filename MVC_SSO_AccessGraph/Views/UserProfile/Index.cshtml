@@ -1,18 +1,13 @@
 ﻿@using Microsoft.Azure.ActiveDirectory.GraphClient
 @model User
+@{
+    ViewBag.Title = "User Profile";
+}
+<h2>@ViewBag.Title.</h2>
 
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>User</title>
-</head>
-<body>
-
-    @if (ViewBag.ErrorMessage == "AuthorizationRequired")
-    {
-        <p>The token for accessing the Graph API has expired. Click @Html.ActionLink("here", "RefreshSession", "UserProfile", new { reauth = true }, null) to sign-in and get a new access token.</p>
+@if (ViewBag.ErrorMessage == "AuthorizationRequired")
+{
+    <p>The token for accessing the Graph API has expired. Click @Html.ActionLink("here", "RefreshSession", "UserProfile", null, null) to sign-in and get a new access token.</p>
 }
 else
 {
@@ -31,5 +26,3 @@ else
         </tr>
     </table>
 }
-</body>
-</html>

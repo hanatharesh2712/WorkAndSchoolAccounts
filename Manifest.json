@@ -1,0 +1,73 @@
+{
+  "allowActAsForAllClients": null,
+  "appId": "7da12378-df53-4954-9266-acaaf223dd9e",
+  "appMetadata": null,
+  "appRoles": [],
+  "availableToOtherTenants": false,
+  "displayName": "MVC_SSO_AccessGraph",
+  "errorUrl": null,
+  "groupMembershipClaims": null,
+  "homepage": "https://localhost:44301/",
+  "identifierUris": [
+    "https://testsso1.onmicrosoft.com/MVC_SSO_AccessGraph"
+  ],
+  "keyCredentials": [],
+  "knownClientApplications": [],
+  "logoutUrl": null,
+  "oauth2AllowImplicitFlow": false,
+  "oauth2AllowUrlPathMatching": false,
+  "oauth2Permissions": [],
+  "oauth2RequirePostResponse": false,
+  "passwordCredentials": [
+    {
+      "customKeyIdentifier": null,
+      "endDate": "2015-12-08T19:45:03.8246483Z",
+      "keyId": "3a1757fb-7f98-4bcc-b6e2-ad32bc334f6f",
+      "startDate": "2014-12-08T19:45:03.8246483Z",
+      "value": null
+    },
+    {
+      "customKeyIdentifier": null,
+      "endDate": "2015-12-04T20:02:36.4522634Z",
+      "keyId": "499e7479-07d6-436d-b3d5-18ff2cd4fe83",
+      "startDate": "2014-12-04T20:02:36.4522634Z",
+      "value": null
+    },
+    {
+      "customKeyIdentifier": "xTRYX6xCBkudZBTVTFfEsQ==",
+      "endDate": "2015-12-04T16:44:52.4367687Z",
+      "keyId": "94218302-5a10-4b60-8af2-0a4ded792ce2",
+      "startDate": "2014-12-04T16:44:52.4367687Z",
+      "value": null
+    }
+  ],
+  "publicClient": false,
+  "replyUrls": [
+    "https://localhost:44301/"
+  ],
+  "requiredResourceAccess": [
+    {
+      "resourceAppId": "00000002-0000-0000-c000-000000000000",
+      "resourceAccess": [
+        {
+          "id": "311a71cc-e848-46a1-bdf8-97ff7156d8e6",
+          "type": "Scope"
+        }
+      ]
+    }
+  ],
+  "samlMetadataUrl": null,
+  "defaultPolicy": [],
+  "extensionProperties": [],
+  "objectType": "Application",
+  "objectId": "2ba3f7ef-2295-4188-9936-c21cf2c2d5c2",
+  "deletionTimestamp": null,
+  "createdOnBehalfOf": null,
+  "createdObjects": [],
+  "manager": null,
+  "directReports": [],
+  "members": [],
+  "memberOf": [],
+  "owners": [],
+  "ownedObjects": []
+}

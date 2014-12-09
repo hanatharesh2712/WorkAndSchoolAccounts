@@ -18,7 +18,7 @@ namespace MVC_MultiOrg
     public partial class Startup
     {
         private string ClientId = ConfigurationManager.AppSettings["ida:ClientID"];
-        private string Authority = "https://login.windows.net/common/";
+        private string Authority = ConfigurationManager.AppSettings["ida:AADInstance"] + "common";
 
         public void ConfigureAuth(IAppBuilder app)
         {
@@ -36,11 +36,19 @@ namespace MVC_MultiOrg
                         // instead of using the default validation (validating against a single issuer value, as we do in line of business apps), 
                         // we inject our own multitenant validation logic
                         ValidateIssuer = false,
-
+                        
+                        // If the app needs access to the entire organization, then add the logic
+                        // of validating the Issuer here.
                         // IssuerValidator
+                        
                     },
                     Notifications = new OpenIdConnectAuthenticationNotifications()
-                    {                        
+                    {   
+                        SecurityTokenValidated = (context) =>
+                        {
+                            // If your authentication logic is based on users then add your logic here
+                            return Task.FromResult(0);
+                        } ,                    
                         AuthenticationFailed = (context) =>
                         {
                             // Pass in the context back to the app

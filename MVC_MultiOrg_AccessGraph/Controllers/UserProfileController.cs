@@ -19,7 +19,7 @@ namespace MVC_MultiOrg_AccessGraph.Controllers
     [Authorize]
     public class UserProfileController : Controller
     {
-        private TenantDbContext db = new TenantDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
         private string clientId = ConfigurationManager.AppSettings["ida:ClientID"];
         private string appKey = ConfigurationManager.AppSettings["ida:ClientSecret"];
         private string graphResourceID = "https://graph.windows.net";
@@ -70,8 +70,8 @@ namespace MVC_MultiOrg_AccessGraph.Controllers
             // get a token for the Graph without triggering any user interaction (from the cache, via multi-resource refresh token, etc)
             ClientCredential clientcred = new ClientCredential(clientId, appKey);
             // initialize AuthenticationContext with the token cache of the currently signed in user, as kept in the app's EF DB
-            AuthenticationContext authContext = new AuthenticationContext(string.Format("https://login.windows.net/{0}", tenantID), new EFADALTokenCache(signedInUserID));
-            AuthenticationContext authenticationContext = new AuthenticationContext(string.Format("https://login.windows.net/{0}", tenantID), new EFADALTokenCache(signedInUserID));
+            AuthenticationContext authContext = new AuthenticationContext(string.Format("https://login.windows.net/{0}", tenantID), new ADALTokenCache(signedInUserID));
+            AuthenticationContext authenticationContext = new AuthenticationContext(string.Format("https://login.windows.net/{0}", tenantID), new ADALTokenCache(signedInUserID));
             AuthenticationResult authenticationResult = await authenticationContext.AcquireTokenSilentAsync(graphResourceID, clientcred, new UserIdentifier(userObjectID, UserIdentifierType.UniqueId));
 
             string token = authenticationResult.AccessToken; 

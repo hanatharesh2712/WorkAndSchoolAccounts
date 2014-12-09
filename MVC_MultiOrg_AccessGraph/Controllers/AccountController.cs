@@ -22,9 +22,21 @@ namespace MVC_MultiOrg_AccessGraph.Controllers
         }
         public void SignOut()
         {
-            // Send an OpenID Connect sign-out request.
+            string callbackUrl = Url.Action("SignOutCallback", "Account", routeValues: null, protocol: Request.Url.Scheme);
+
             HttpContext.GetOwinContext().Authentication.SignOut(
+                new AuthenticationProperties { RedirectUri = callbackUrl },
                 OpenIdConnectAuthenticationDefaults.AuthenticationType, CookieAuthenticationDefaults.AuthenticationType);
+        }
+        public ActionResult SignOutCallback()
+        {
+            if (Request.IsAuthenticated)
+            {
+                // Redirect to home page if the user is authenticated.
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
         }
     }
 }

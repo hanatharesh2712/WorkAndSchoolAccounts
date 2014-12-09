@@ -179,8 +179,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\TenantDbContext.cs" />
-    <Compile Include="Models\TenantRegistrationModel.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\ADALTokenCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs">
       <ConnectedServiceReference>Azure AD Authentication</ConnectedServiceReference>
@@ -226,6 +226,7 @@
       <ConnectedServiceReference>Azure AD Authentication</ConnectedServiceReference>
     </Content>
     <Content Include="Views\UserProfile\Index.cshtml" />
+    <Content Include="Views\Account\SignOutCallback.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -236,9 +237,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

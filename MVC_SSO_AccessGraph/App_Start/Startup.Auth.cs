@@ -24,15 +24,14 @@ namespace MVC_SSO_AccessGraph
         private static string tenantId = ConfigurationManager.AppSettings["ida:TenantId"];
         private static string postLogoutRedirectUri = ConfigurationManager.AppSettings["ida:PostLogoutRedirectUri"];
 
-        public static readonly string Authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenantId);
+        public static readonly string Authority = aadInstance+ tenantId;
 
         // This is the resource ID of the AAD Graph API.  We'll need this to request a token to call the Graph API.
-        // Generic mode for picking up this setting
         string graphResourceId = "https://graph.windows.net";
 
         public void ConfigureAuth(IAppBuilder app)
         {
-            TenantDbContext db = new TenantDbContext();
+            ApplicationDbContext db = new ApplicationDbContext();
 
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
 
@@ -51,13 +50,13 @@ namespace MVC_SSO_AccessGraph
                         // If there is a code in the OpenID Connect response, redeem it for an access token and refresh token, and store those away.
                         //
 
-                       AuthorizationCodeReceived = (context) =>
+                       AuthorizationCodeReceived = (context) => 
                        {
                            var code = context.Code;
                            ClientCredential credential = new ClientCredential(clientId, appKey);
                            string userObjectID = context.AuthenticationTicket.Identity.FindFirst(
                                "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                           AuthenticationContext authContext = new AuthenticationContext(Authority, new EFADALTokenCache(userObjectID));
+                           AuthenticationContext authContext = new AuthenticationContext(Authority, new ADALTokenCache(userObjectID));
                            AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
                            code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
 

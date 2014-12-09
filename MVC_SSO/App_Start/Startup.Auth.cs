@@ -19,7 +19,7 @@ namespace MVC_SSO
         private static string tenantId = ConfigurationManager.AppSettings["ida:TenantId"];
         private static string postLogoutRedirectUri = ConfigurationManager.AppSettings["ida:PostLogoutRedirectUri"];
 
-        string authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenantId);
+        private static string authority = aadInstance+tenantId;
 
         public void ConfigureAuth(IAppBuilder app)
         {

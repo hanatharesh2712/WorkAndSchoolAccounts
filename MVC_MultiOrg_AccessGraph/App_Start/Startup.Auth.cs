@@ -20,16 +20,15 @@ namespace MVC_MultiOrg_AccessGraph
     public partial class Startup
     {
         private static string clientId = ConfigurationManager.AppSettings["ida:ClientId"];
-        private TenantDbContext db = new TenantDbContext();
+        private string appKey = ConfigurationManager.AppSettings["ida:ClientSecret"];
+        private string graphResourceID = "https://graph.windows.net";
+        private string Authority = ConfigurationManager.AppSettings["ida:AADInstance"] + "common";
+        private ApplicationDbContext db = new ApplicationDbContext();
+
 
         public void ConfigureAuth(IAppBuilder app)
         {
-            string clientId = ConfigurationManager.AppSettings["ida:ClientID"];
-            string appKey = ConfigurationManager.AppSettings["ida:ClientSecret"];
-            string graphResourceID = "https://graph.windows.net";
-            //fixed address for multitenant apps in the public cloud
-            string Authority = "https://login.windows.net/common/";
-
+            
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions { });
@@ -55,7 +54,7 @@ namespace MVC_MultiOrg_AccessGraph
                             string tenantID = context.AuthenticationTicket.Identity.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid").Value;
                             string signedInUserID = context.AuthenticationTicket.Identity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-                            AuthenticationContext authContext = new AuthenticationContext(string.Format("https://login.windows.net/{0}", tenantID), new EFADALTokenCache(signedInUserID));
+                            AuthenticationContext authContext = new AuthenticationContext(string.Format("https://login.windows.net/{0}", tenantID), new ADALTokenCache(signedInUserID));
                             AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(
                                 code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceID);
 
