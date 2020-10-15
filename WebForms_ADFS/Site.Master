@@ -57,7 +57,7 @@
                      <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <LoggedInTemplate>
                             <ul class="nav navbar-nav  navbar-right">
-                                <li class="navbar-text">Hello, <%: Context.User.Identity.Name  %>!</li>
+                                <li class="navbar-text">Hello, <%:UserName %>!</li>
                                 <li>
                                     <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Sign out"
                                         LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />

@@ -15,9 +15,23 @@ namespace WebForms_SSO
 {
     public partial class SiteMaster : MasterPage
     {
+        public string UserName;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            var claimsIdentity = Context.User.Identity as System.Security.Claims.ClaimsIdentity;
+            if (claimsIdentity != null)
+            {
+                foreach (System.Security.Claims.Claim claim in claimsIdentity.Claims)
+                {
+                    string ClaimType = claim.Type;
+                    if (ClaimType == "http://schemas.microsoft.com/ws/2008/06/identity/claims/windowsaccountname")
+                    {
+                        string ClaimValue = claim.Value;
+                        UserName = ClaimValue;
+                    }
+                    
+                }
+            }
         }
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
